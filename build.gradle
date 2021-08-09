@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'idea'
+}
+
+group 'com.github.xenon'
+version '1.0'
+mainClassName = 'com.github.xenon.adofai.Program'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.github.xenon.adofai.Program',
+                'Implementation-Title': rootProject.name,
+                'Implementation-Version': rootProject.version
+    }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }}
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+    implementation "com.google.guava:guava:30.1.1-jre"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
